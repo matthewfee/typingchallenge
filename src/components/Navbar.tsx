@@ -1,21 +1,27 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { StyledLink, StyledNavbar, StyledNavItems } from '../styled/Navbar'
+import { Accent } from '../styled/Random'
 
 const Navbar = () => {
   return (
-    <nav>
-        <div>
-            <Link to="/">
-                Learn.Build.<span>Type.</span>
-            </Link>
-        </div>
+    <StyledNavbar>
+      <div>
+        <StyledLink to='/'>
+          {' '}
+          Learn.Build.<Accent>Type.</Accent>
+        </StyledLink>
+      </div>
 
-        <ul>
-            <li><Link to="/">Home</Link></li>
-            <li><Link to="/highScores">HighScores</Link></li>
-        </ul>
-
-    </nav>
+      <StyledNavItems>
+        <li>
+          <StyledLink to='/'>Home</StyledLink>
+        </li>
+        <li>
+          <StyledLink to='/highScores'>HighScores</StyledLink>
+        </li>
+      </StyledNavItems>
+    </StyledNavbar>
   )
 }
 
