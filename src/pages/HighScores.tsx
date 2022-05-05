@@ -9,8 +9,8 @@ const HighScores = () => {
       try {
         const res = await fetch('/.netlify/functions/getHighScores')
         const scores = await res.json()
-        console.log(scores.formattedRecords)
-        setHighScores(scores.formattedRecords)
+        console.log(scores)
+        setHighScores(scores.records)
       } catch (error) {
         console.error(error)
       }
@@ -30,10 +30,10 @@ const HighScores = () => {
     <div>
       <h2>High Scores</h2>
       <ScoresList>
-        {highScores.map((score: scoreType) => {
+        {highScores.map((score: scoreType, index: number) => {
           return (
             <ScoreLI key={score.id}>
-              {score.fields.name} - {score.fields.score}
+              {index + 1}. {score.fields.name} - {score.fields.score}
             </ScoreLI>
           )
         })}

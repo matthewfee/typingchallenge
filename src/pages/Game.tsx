@@ -6,7 +6,7 @@ import { StyledCharacter, Strong } from '../styled/Random'
 
 const Game = () => {
   const [score, setScore] = useScore()
-  const MAX_SECONDS = '30'
+  const MAX_SECONDS = '5'
   const [ms, setMs] = useState('999')
   const [seconds, setSeconds] = useState(MAX_SECONDS)
   const characters = 'abcdefghijklmnopqrstuvwxyz1234567890'

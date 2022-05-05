@@ -1,17 +1,4 @@
-require('dotenv').config()
-
-const Airtable = require('airtable')
-
-const key = process.env.AIRTABLE_API_KEY
-const baseId = 'appbZwWwGymqsLhvw'
-const tableId = 'Table1'
-
-Airtable.configure({
-  apiKey: key
-})
-
-const base = Airtable.base(baseId)
-const table = base.table(tableId)
+const { table, getHighScores } = require('./utils/airtable')
 
 exports.handler = async (event) => {
   if (event.httpMethod !== 'POST') {
@@ -25,7 +12,7 @@ exports.handler = async (event) => {
 
   const { score, name } = JSON.parse(event.body)
 
-  if (!score || !name) {
+  if (typeof score === 'undefined' || !name) {
     return {
       statusCode: 400,
       body: JSON.stringify({ error: 'Bad request' })
@@ -33,38 +20,33 @@ exports.handler = async (event) => {
   }
 
   try {
-    const records = await table
-      .select({
-        sort: [{ field: 'score', direction: 'desc' }]
-      })
-      .firstPage()
+    const records = await getHighScores(false)
 
-    const formattedRecords = records.map((record) => ({
-      id: record.id,
-      fields: record.fields
-    }))
+    const lowestRecord = records[9]
 
-    // formatted records in order of score highest to lowest
-
-    const lowestRecord = formattedRecords[9]
-
-    if (
-      typeof lowestRecord.fields.score === 'undefined' ||
-      score > lowestRecord.fields.score
-    ) {
-      const updatedRecord = { id: lowestRecord.id, fields: { name, score } }
+    if (score > lowestRecord.fields.score) {
+      const updatedRecord = {
+        id: lowestRecord.id,
+        fields: { name, score }
+      }
       await table.update([updatedRecord])
+      return {
+        statusCode: 200,
+        body: JSON.stringify(updatedRecord)
+      }
+    } else {
+      return {
+        statusCode: 200,
+        body: JSON.stringify({})
+      }
     }
+  } catch (error) {
+    console.error(error)
     return {
       statusCode: 200,
       body: JSON.stringify({
-        updatedRecord
+        error: 'Failed to save score in Airtable'
       })
-    }
-  } catch (error) {
-    return {
-      statusCode: 200,
-      body: JSON.stringify({})
     }
   }
 }
