@@ -18,9 +18,9 @@ function App() {
           <Navbar />
           <Container>
             <Routes>
-              <Route path='/game' element={<Game />}></Route>
               <Route path='/highScores' element={<HighScores />}></Route>
               <Route path='/gameOver' element={<GameOver />}></Route>
+              <Route path='/game' element={<Game />}></Route>
               <Route path='/' element={<Home />}></Route>
             </Routes>
           </Container>
