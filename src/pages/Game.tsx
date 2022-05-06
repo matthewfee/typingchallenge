@@ -25,6 +25,11 @@ const Game = () => {
   const keyUpHandler = useCallback(
     (e: any) => {
       console.log(e.key, currentCharacter)
+
+      if (e.key === 'Shift') {
+        return
+      }
+
       if (e.key === currentCharacter) {
         setScore((prevScore: number) => prevScore + 1)
       } else {
