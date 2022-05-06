@@ -9,7 +9,7 @@ const Game = () => {
   const MAX_SECONDS = '30'
   const [ms, setMs] = useState('999')
   const [seconds, setSeconds] = useState(MAX_SECONDS)
-  const characters = 'abcdefghijklmnopqrstuvwxyz1234567890'
+  const characters = `abcdefghijklmnopqrstuvwxyz1234567890~#$%^&*()|?><.,-_=+`
   const [currentCharacter, setCurrentCharacter] = useState('')
 
   useEffect(() => {
@@ -76,7 +76,8 @@ const Game = () => {
   }, [seconds, ms])
 
   const setRandomCharacter = () => {
-    const randomInt = Math.floor(Math.random() * 36)
+    const length = characters.length
+    const randomInt = Math.floor(Math.random() * length)
     setCurrentCharacter(characters[randomInt])
   }
 

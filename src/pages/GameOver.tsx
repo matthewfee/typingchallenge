@@ -7,7 +7,7 @@ import { useAuth0 } from '@auth0/auth0-react'
 
 const GameOver = () => {
   const [score] = useScore()
-  const [scoreMessage, setScoreMessage] = useState('checking High Score')
+  const [scoreMessage, setScoreMessage] = useState('')
 
   const { getAccessTokenSilently, isAuthenticated, user } = useAuth0()
 
