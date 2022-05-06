@@ -9,7 +9,7 @@ const GameOver = () => {
   const [score] = useScore()
   const [scoreMessage, setScoreMessage] = useState('checking High Score')
 
-  const { getAccessTokenSilently, isAuthenticated } = useAuth0()
+  const { getAccessTokenSilently, isAuthenticated, user } = useAuth0()
 
   const navigate = useNavigate()
 
@@ -19,13 +19,15 @@ const GameOver = () => {
     }
   }, [])
 
+  const userName = user?.name || 'Anonymous'
+
   useEffect(() => {
     const saveHighScore = async () => {
       try {
         const token = await getAccessTokenSilently()
         const options = {
           method: 'POST',
-          body: JSON.stringify({ name: 'asdasfsd', score }),
+          body: JSON.stringify({ name: userName, score }),
           headers: {
             Authorization: `Bearer ${token}`
           }

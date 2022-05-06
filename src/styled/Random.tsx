@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 export const Accent = styled.span`
-  color: #e16365;
+  color: var(--accent-color);
 `
 
 export const StyledTitle = styled.h1`
@@ -16,7 +16,7 @@ export const StyledCharacter = styled.p`
   grid-row: 2;
   grid-column: 1/4;
   text-align: center;
-  color: #e16365;
+  color: var(--accent-color);
 `
 
 export const Strong = styled.strong`

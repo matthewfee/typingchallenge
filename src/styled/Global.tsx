@@ -1,18 +1,21 @@
 import { createGlobalStyle } from 'styled-components'
 
-export default createGlobalStyle`
+export const GlobalStyle = createGlobalStyle`
     *{
         margin: 0;
         padding: 0;
         outline:0;
-        color: #333;
+        color: var(--main-text-color);
         font-weight: 300;
         box-sizing:border-box;
         font-family: 'Open Sans', sans-serif; 
    
     }
-    #root{
+    :root{
         margin:0 auto;
+        --main-bg-color: ${(props) => props.theme.mainBgColor};
+        --main-text-color: ${(props) => props.theme.mainTextColor};
+        --accent-color: ${(props) => props.theme.accentColor}
     }
 
     h1, h2 {

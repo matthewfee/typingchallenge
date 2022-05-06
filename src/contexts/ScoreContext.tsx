@@ -1,10 +1,4 @@
-import React, {
-  useContext,
-  useState,
-  Dispatch,
-  SetStateAction,
-  ContextType
-} from 'react'
+import React, { useContext, useState } from 'react'
 
 const ScoreContext = React.createContext<any>(-1)
 const useScore = () => useContext(ScoreContext)
