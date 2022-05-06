@@ -1,9 +1,25 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import { useEffect, useCallback } from 'react'
+import { Link, useNavigate } from 'react-router-dom'
 import CTA from '../styled/CTA'
 import { Accent, StyledTitle } from '../styled/Random'
 
 const Home = () => {
+  const navigate = useNavigate()
+  const keyUpHandler = useCallback((e: any) => {
+    if (e.key === 's') {
+      navigate('/game')
+    } else {
+      return
+    }
+  }, [])
+
+  useEffect(() => {
+    document.addEventListener('keyup', keyUpHandler)
+    return () => {
+      document.removeEventListener('keyup', keyUpHandler)
+    }
+  }, [keyUpHandler])
+
   return (
     <div>
       <StyledTitle> Ready to type?</StyledTitle>
