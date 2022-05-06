@@ -3,10 +3,13 @@ import { useNavigate } from 'react-router-dom'
 import { useScore } from '../contexts/ScoreContext'
 import { StyledLink } from '../styled/Navbar'
 import { StyledCharacter } from '../styled/Random'
+import { useAuth0 } from '@auth0/auth0-react'
 
 const GameOver = () => {
   const [score] = useScore()
   const [scoreMessage, setScoreMessage] = useState('checking High Score')
+
+  const { getAccessTokenSilently, isAuthenticated } = useAuth0()
 
   const navigate = useNavigate()
 
@@ -19,9 +22,13 @@ const GameOver = () => {
   useEffect(() => {
     const saveHighScore = async () => {
       try {
+        const token = await getAccessTokenSilently()
         const options = {
           method: 'POST',
-          body: JSON.stringify({ name: 'asdasfsd', score })
+          body: JSON.stringify({ name: 'asdasfsd', score }),
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
         }
         const res = await fetch('/.netlify/functions/saveHighScore', options)
         const data = await res.json()
@@ -34,13 +41,18 @@ const GameOver = () => {
         console.error(err)
       }
     }
-    saveHighScore()
+    if (isAuthenticated) {
+      saveHighScore()
+    }
   }, [score])
 
   return (
     <div>
       <h1>Game Over</h1>
       <h2>{scoreMessage}</h2>
+      {!isAuthenticated && (
+        <h2>Log in or sign up to compete for high scores.</h2>
+      )}
       <StyledCharacter>{score}</StyledCharacter>
       <div>
         <StyledLink to='/'>Go Home</StyledLink>
