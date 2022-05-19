@@ -31,6 +31,11 @@ export const StyledLink = styled(Link)`
     color: var(--accent-color);
   }
 `
+export const LinkContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+`
 
 export const StyledButtonLink = styled.button`
   border: none;
