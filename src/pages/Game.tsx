@@ -1,19 +1,36 @@
 import { useEffect, useState, useCallback, KeyboardEvent } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useScore } from '../contexts/ScoreContext'
-import { StyledGame, StyledScore, StyledTimer } from '../styled/Game'
-import { StyledCharacter, Strong } from '../styled/Random'
+import {
+  StyledGame,
+  StyledInput,
+  StyledScore,
+  StyledTimer,
+  StyledWordContainer
+} from '../styled/Game'
+import { StyledWord, Strong } from '../styled/Random'
 
 const Game = () => {
   const [score, setScore] = useScore()
   const MAX_SECONDS = '30'
   const [ms, setMs] = useState('999')
   const [seconds, setSeconds] = useState(MAX_SECONDS)
-  const characters = `abcdefghijklmnopqrstuvwxyz1234567890~#$%^&*()|?><.,-_=+`
-  const [currentCharacter, setCurrentCharacter] = useState('')
+
+  const words = [
+    'green',
+    'mountain',
+    'tree',
+    'field',
+    'daisy',
+    'bear',
+    'terror'
+  ]
+
+  const [currentWord, setCurrentWord] = useState('mountain')
+  const [typingInput, setTypingInput] = useState('')
 
   useEffect(() => {
-    setRandomCharacter()
+    setRandomWord()
     setScore(0)
     const currentTime = new Date()
     const interval = setInterval(() => updateTime(currentTime), 1)
@@ -22,25 +39,14 @@ const Game = () => {
     }
   }, [])
 
-  const keyUpHandler = useCallback(
-    (e: any) => {
-      console.log(e.key, currentCharacter)
-
-      if (e.key === 'Shift') {
-        return
-      }
-
-      if (e.key === currentCharacter) {
-        setScore((prevScore: number) => prevScore + 1)
-      } else {
-        if (score > 0) {
-          setScore((prevScore: number) => prevScore - 1)
-        }
-      }
-      setRandomCharacter()
-    },
-    [currentCharacter]
-  )
+  const keyUpHandler = useCallback((): void => {
+    if (typingInput === currentWord) {
+      console.log('WORD MATCH', typingInput, currentWord)
+      setScore((prevScore: number) => prevScore + 1)
+      setTypingInput('')
+      setRandomWord()
+    }
+  }, [typingInput])
 
   useEffect(() => {
     document.addEventListener('keyup', keyUpHandler)
@@ -80,10 +86,20 @@ const Game = () => {
     }
   }, [seconds, ms])
 
-  const setRandomCharacter = () => {
-    const length = characters.length
+  const setRandomWord = () => {
+    const wordList = words.filter((word) => word !== currentWord)
+    console.log('WORD LIST', wordList)
+    const length = wordList.length
     const randomInt = Math.floor(Math.random() * length)
-    setCurrentCharacter(characters[randomInt])
+    console.log(randomInt)
+    const newWord = wordList[randomInt]
+    setCurrentWord((prevState) => {
+      return newWord
+    })
+  }
+
+  const handleTypingInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setTypingInput(event.target.value)
   }
 
   return (
@@ -91,7 +107,17 @@ const Game = () => {
       <StyledScore>
         Score: <Strong>{score}</Strong>
       </StyledScore>
-      <StyledCharacter>{currentCharacter}</StyledCharacter>
+
+      <StyledWordContainer>
+        <StyledWord>{currentWord}</StyledWord>
+        <StyledInput
+          type='text'
+          placeholder=''
+          value={typingInput}
+          onChange={handleTypingInput}
+        />
+      </StyledWordContainer>
+
       <StyledTimer>
         Time:{' '}
         <Strong>

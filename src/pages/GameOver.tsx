@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useScore } from '../contexts/ScoreContext'
 import { StyledLink } from '../styled/Navbar'
-import { StyledCharacter } from '../styled/Random'
+import { StyledWord } from '../styled/Random'
 import { useAuth0 } from '@auth0/auth0-react'
 
 const GameOver = () => {
@@ -55,7 +55,7 @@ const GameOver = () => {
       {!isAuthenticated && (
         <h2>Log in or sign up to compete for high scores.</h2>
       )}
-      <StyledCharacter>{score}</StyledCharacter>
+      <StyledWord>{score}</StyledWord>
       <div>
         <StyledLink to='/'>Go Home</StyledLink>
       </div>
