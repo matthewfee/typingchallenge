@@ -19,14 +19,16 @@ export const StyledWordContainer = styled.div`
 `
 
 export const StyledInput = styled.input`
-  font-size: 2rem;
-  color: var(--main-text-color);
+  font-size: 2.4rem;
+  color: var(--accent-color);
   text-align: center;
   padding: 1rem;
   background-color: var(--main-bg-color);
   border: 1px solid var(--main-text-color);
   border-radius: 0.4rem;
   margin: 2rem;
+  margin-top: 3rem;
+  max-width: 400px;
 `
 
 export const StyledScore = styled.p`

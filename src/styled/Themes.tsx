@@ -7,5 +7,5 @@ export const darkTheme = {
 export const lightTheme = {
   mainBgColor: '#f9f9f9',
   mainTextColor: '#333',
-  accentColor: '#7830FA'
+  accentColor: '#965dff'
 }

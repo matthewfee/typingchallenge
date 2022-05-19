@@ -14,7 +14,7 @@ export const StyledTitle = styled.h1`
 export const StyledWord = styled.p`
   font-size: 5rem;
   text-align: center;
-  color: var(--accent-color);
+  color: var(--main-text-color);
 `
 
 export const Strong = styled.strong`

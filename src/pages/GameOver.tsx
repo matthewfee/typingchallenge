@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { useScore } from '../contexts/ScoreContext'
-import { StyledLink } from '../styled/Navbar'
+import { LinkContainer, StyledLink } from '../styled/Navbar'
 import { StyledWord } from '../styled/Random'
 import { useAuth0 } from '@auth0/auth0-react'
 
@@ -56,12 +56,12 @@ const GameOver = () => {
         <h2>Log in or sign up to compete for high scores.</h2>
       )}
       <StyledWord>{score}</StyledWord>
-      <div>
+
+      <LinkContainer>
         <StyledLink to='/'>Go Home</StyledLink>
-      </div>
-      <div>
+
         <StyledLink to='/game'>Play Again</StyledLink>
-      </div>
+      </LinkContainer>
     </div>
   )
 }
