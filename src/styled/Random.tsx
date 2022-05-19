@@ -11,10 +11,8 @@ export const StyledTitle = styled.h1`
   margin-top: 3rem;
 `
 
-export const StyledCharacter = styled.p`
-  font-size: 15rem;
-  grid-row: 2;
-  grid-column: 1/4;
+export const StyledWord = styled.p`
+  font-size: 5rem;
   text-align: center;
   color: var(--accent-color);
 `
