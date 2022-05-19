@@ -1,5 +1,5 @@
 import { useEffect, useCallback } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import CTA from '../styled/CTA'
 import { Accent, StyledTitle } from '../styled/Random'
 
