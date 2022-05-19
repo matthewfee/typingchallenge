@@ -115,6 +115,7 @@ const Game = () => {
           placeholder=''
           value={typingInput}
           onChange={handleTypingInput}
+          autoFocus
         />
       </StyledWordContainer>
 
