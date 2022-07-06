@@ -23,7 +23,31 @@ const Game = () => {
     'field',
     'daisy',
     'bear',
-    'terror'
+    'terror',
+    'assorted',
+    'box',
+    'soup',
+    'decay',
+    'basketball',
+    'notice',
+    'nebulous',
+    'market',
+    'efficient',
+    'sense',
+    'omniscient',
+    'top',
+    'tow',
+    'territory',
+    'paltry',
+    'rice',
+    'harbor',
+    'try',
+    'freezing',
+    'add',
+    'magenta',
+    'accessible',
+    'birds',
+    'loss'
   ]
 
   const [currentWord, setCurrentWord] = useState('mountain')
