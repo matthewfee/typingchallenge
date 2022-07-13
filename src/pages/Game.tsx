@@ -40,9 +40,7 @@ const Game = () => {
   }, [words])
 
   const keyUpHandler = useCallback((): void => {
-    console.log('key up handler', typingInput)
     if (typingInput === currentWord) {
-      console.log('WORD MATCH', typingInput, currentWord)
       setScore((prevScore: number) => prevScore + 1)
       setTypingInput('')
       setRandomWord()
@@ -88,12 +86,10 @@ const Game = () => {
   }, [seconds, ms])
 
   const setRandomWord = () => {
-    const wordList = wordsList.filter((word: string) => word !== currentWord)
-    console.log('WORD LIST', wordsList)
-    const length = wordsList.length
+    const wordList = wordsList.filter((item) => item !== currentWord)
+    const length = wordList.length
     const randomInt = Math.floor(Math.random() * length)
-    console.log(randomInt)
-    const newWord = wordsList[randomInt]
+    const newWord = wordList[randomInt]
     setCurrentWord(newWord)
   }
 
