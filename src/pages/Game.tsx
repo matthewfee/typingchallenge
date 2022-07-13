@@ -9,52 +9,23 @@ import {
   StyledWordContainer
 } from '../styled/Game'
 import { StyledWord, Strong } from '../styled/Random'
+import { nature } from '../data/words'
+import { StyledButton } from '../styled/Buttons'
+import { useWords } from '../contexts/WordsContext'
 
 const Game = () => {
   const [score, setScore] = useScore()
   const MAX_SECONDS = '30'
   const [ms, setMs] = useState('999')
   const [seconds, setSeconds] = useState(MAX_SECONDS)
+  const [wordsList, setWordsList] = useState([])
 
-  const words = [
-    'green',
-    'mountain',
-    'tree',
-    'field',
-    'daisy',
-    'bear',
-    'terror',
-    'assorted',
-    'box',
-    'soup',
-    'decay',
-    'basketball',
-    'notice',
-    'nebulous',
-    'market',
-    'efficient',
-    'sense',
-    'omniscient',
-    'top',
-    'tow',
-    'territory',
-    'paltry',
-    'rice',
-    'harbor',
-    'try',
-    'freezing',
-    'add',
-    'magenta',
-    'accessible',
-    'birds',
-    'loss'
-  ]
-
-  const [currentWord, setCurrentWord] = useState('mountain')
   const [typingInput, setTypingInput] = useState('')
+  const [words] = useWords()
+  const [themeName, setThemeName] = useState('')
+  const [currentWord, setCurrentWord] = useState(words.wordsList[0])
 
   useEffect(() => {
-    setRandomWord()
     setScore(0)
     const currentTime = new Date()
     const interval = setInterval(() => updateTime(currentTime), 1)
@@ -63,7 +34,13 @@ const Game = () => {
     }
   }, [])
 
+  useEffect(() => {
+    setWordsList(words.wordsList)
+    setThemeName(words.themeName)
+  }, [words])
+
   const keyUpHandler = useCallback((): void => {
+    console.log('key up handler', typingInput)
     if (typingInput === currentWord) {
       console.log('WORD MATCH', typingInput, currentWord)
       setScore((prevScore: number) => prevScore + 1)
@@ -111,15 +88,13 @@ const Game = () => {
   }, [seconds, ms])
 
   const setRandomWord = () => {
-    const wordList = words.filter((word) => word !== currentWord)
-    console.log('WORD LIST', wordList)
-    const length = wordList.length
+    const wordList = wordsList.filter((word: string) => word !== currentWord)
+    console.log('WORD LIST', wordsList)
+    const length = wordsList.length
     const randomInt = Math.floor(Math.random() * length)
     console.log(randomInt)
-    const newWord = wordList[randomInt]
-    setCurrentWord((prevState) => {
-      return newWord
-    })
+    const newWord = wordsList[randomInt]
+    setCurrentWord(newWord)
   }
 
   const handleTypingInput = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -133,6 +108,7 @@ const Game = () => {
       </StyledScore>
 
       <StyledWordContainer>
+        <h2>{themeName}</h2>
         <StyledWord>{currentWord}</StyledWord>
         <StyledInput
           type='text'
