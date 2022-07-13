@@ -5,6 +5,7 @@ import { ScoreProvider } from './contexts/ScoreContext'
 import { Auth0Provider } from '@auth0/auth0-react'
 import './index.css'
 import { DarkModeProvider } from './contexts/ThemeContext'
+import { WordsProvider } from './contexts/WordsContext'
 
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
@@ -16,7 +17,9 @@ ReactDOM.createRoot(document.getElementById('root')!).render(
     >
       <ScoreProvider>
         <DarkModeProvider>
-          <App />
+          <WordsProvider>
+            <App />
+          </WordsProvider>
         </DarkModeProvider>
       </ScoreProvider>
     </Auth0Provider>
